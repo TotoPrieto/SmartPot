@@ -8,6 +8,7 @@ class I2C {
     void midValue(int soilmoisturepercent);
     void lowValue();
     void highValue();
+    void turnOff();
 
 
 };

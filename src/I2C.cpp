@@ -89,3 +89,8 @@ void I2C::highValue(){
   delay(250);
   display.clearDisplay();
 }
+
+void I2C::turnOff() {
+  display.clearDisplay();
+  display.display(); // Update the display to show the cleared screen
+}
