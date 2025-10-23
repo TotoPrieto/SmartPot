@@ -20,77 +20,109 @@ void I2C::setupDisplay() {
   display.clearDisplay();
 }
 
-void I2C::midValue(int soilmoisturepercent){
-  Serial.print(soilmoisturepercent);
-  Serial.println("%");
-  
-  display.setCursor(22,0);  //oled display
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.println("Humedad");
-  display.setCursor(35,15);
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.println("Suelo");
-
-  display.setCursor(30,40);  //oled display
-  display.setTextSize(3);
-  display.setTextColor(WHITE);
-  display.println(soilmoisturepercent);
-  display.setCursor(70,40);
-  display.setTextSize(3);
-  display.println(" %");
-  display.display();
- 
-  delay(250);
-  display.clearDisplay();
-}
-
-void I2C::lowValue() {
-  Serial.println("0 %");
-  
-  display.setCursor(22,0);  //oled display
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.println("Humedad");
-  display.setCursor(35,15);
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.println("Suelo");
-
-  display.setCursor(30,40);  //oled display
-  display.setTextSize(3);
-  display.setTextColor(WHITE);
-  display.println("0 %");
-  display.display();
- 
-  delay(250);
-  display.clearDisplay();
-}
-
-void I2C::highValue(){
-  Serial.println("100 %");
-  
-  display.setCursor(22,0);  //oled display
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.println("Humedad");
-  display.setCursor(35,15);  
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.println("Suelo");
-  
-  display.setCursor(30,40);  //oled display
-  display.setTextSize(3);
-  display.setTextColor(WHITE);
-  display.println("100 %");
-  display.display();
-  
-  delay(250);
-  display.clearDisplay();
-}
 
 void I2C::turnOff() {
   display.clearDisplay();
   display.display(); // Update the display to show the cleared screen
+}
+
+
+void I2C::soilMidValue(int soilmoisturepercent){
+
+  display.setCursor(10,0);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.println("Humedad");
+
+  display.setCursor(70,0);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+
+  display.println(soilmoisturepercent);
+  display.setCursor(80,0);
+  display.setTextSize(1);
+  display.println(" %");
+ 
+}
+
+void I2C::soilLowValue() {
+
+  display.setCursor(10,0);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.println("Humedad");
+
+  display.setCursor(70,0);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.println("0 %");
+ 
+}
+
+void I2C::soilHighValue(){
+
+  display.setCursor(10,0);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.println("Humedad");
+
+  display.setCursor(70,0);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.println("100 %");
+  
+}
+
+void I2C::lightMidValue(int lightpercent){
+
+  display.setCursor(10,0);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.println("Luz");
+
+  display.setCursor(70,10);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+
+  display.println(lightpercent);
+  display.setCursor(80,10);
+  display.setTextSize(1);
+  display.println(" %");
+ 
+}
+
+void I2C::lightLowValue() {
+
+  display.setCursor(10,10);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.println("Luz");
+
+  display.setCursor(70,10);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.println("0 %");
+ 
+}
+
+void I2C::lightHighValue(){
+
+  display.setCursor(10,10);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.println("Luz");
+
+  display.setCursor(70,10);  //oled display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.println("100 %");
+  
+}
+void I2C::updateDisplay() {
+  display.display();
+}
+
+void I2C::cleanDisplay() {
+  delay(250);
+  display.clearDisplay();
 }
