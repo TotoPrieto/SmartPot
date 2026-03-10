@@ -1,5 +1,7 @@
 #include "Button.hpp"
 
+#define DEBOUNCE_DELAY 10  // ms, para respuesta más rápida
+
 //Constructor. Parameters are: Pin from button, value when button is pressed, and what to do when pressed
 Button::Button(uint8_t pin, bool activeLow, LimitCallback cb)
     : pin(pin), activeLow(activeLow), triggered(false),
@@ -21,7 +23,7 @@ void Button::update() {
     }
 
     //Anti-rebound
-    if ((millis() - lastDebounceTime) > debounceDelay) {
+    if ((millis() - lastDebounceTime) > DEBOUNCE_DELAY) {
         //If the limit switch is pressed
         if (reading == activeState && !triggered) {
             triggered = true;

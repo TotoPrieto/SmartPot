@@ -17,4 +17,9 @@ class I2C {
     void lightLowValue();
     void lightHighValue();
 
+    void showWaterMessage();
+
+    void displayOn();
+    void displayOff();
+
 };

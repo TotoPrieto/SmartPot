@@ -7,7 +7,9 @@ class SoilSensor {
     SoilSensor(I2C& display);
     void begin();
     void checkSoilMoistureLevel();
+    int getSoilMoistureLevel();
 
   private:
     I2C& dsp;
+    int soilMoisturePercent;
 };

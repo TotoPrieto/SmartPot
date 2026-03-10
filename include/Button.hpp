@@ -18,5 +18,4 @@ private:
     bool lastReading;
 
     LimitCallback onPress;
-    unsigned long debounceDelay = 10;
   };

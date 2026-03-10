@@ -7,14 +7,18 @@ void LightSensor::begin() {
 }
 
 void LightSensor::checkLux() {
-	float lux = bh1750.readLightLevel();
-  int porcentaje = map(lux, 0, 50000, 0, 100);
+	currentLux = bh1750.readLightLevel();
+  int porcentaje = map(currentLux, 0, 50000, 0, 100);
 	if (porcentaje < 100) {
 		dsp.lightLowValue();
 	} else if (porcentaje > 1000) {
 		dsp.lightHighValue();
 	} else {
-		dsp.lightMidValue(lux);
+		dsp.lightMidValue(currentLux);
 	}
+}
+
+float LightSensor::getLux() {
+	return currentLux;
 }
 

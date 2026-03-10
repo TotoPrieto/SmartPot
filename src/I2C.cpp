@@ -126,3 +126,18 @@ void I2C::cleanDisplay() {
   delay(250);
   display.clearDisplay();
 }
+
+void I2C::showWaterMessage() {
+  display.setCursor(10,40);  // Nueva línea
+  display.setTextSize(2);    // Tamaño grande para mayúsculas
+  display.setTextColor(WHITE);
+  display.println("REGAR");
+}
+
+void I2C::displayOn() {
+  display.ssd1306_command(0xAF);  // Display ON
+}
+
+void I2C::displayOff() {
+  display.ssd1306_command(0xAE);  // Display OFF
+}

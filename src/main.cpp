@@ -3,15 +3,20 @@
 #include "Button.hpp"
 #include "LightSensor.hpp"
 #include "SoilSensor.hpp"
+#include "LED.hpp"
+#include "Ultrasonic.hpp"
 #include <Wire.h>
 
 #define BUTTON_PIN    0
 bool systemOn = true;
+unsigned long lastDetectionTime = 0;
 
 
 I2C dsp;
 SoilSensor soilMoistureSensor(dsp);
 LightSensor lightSensor(dsp);
+LED led;
+Ultrasonic ultrasonic(D7, D8);  // Trig D7, Echo D8
 
 Button powerButton(BUTTON_PIN,true,[](){
   systemOn = !systemOn;
@@ -28,6 +33,8 @@ void setup() {
   Wire.begin(D2, D1); // SDA, SCL para ESP8266
   dsp.setupDisplay();
   lightSensor.begin();
+  led.begin();
+  ultrasonic.begin();
 
   // --- I2C Scanner ---
   Serial.println("\nEscaneando bus I2C...");
@@ -47,13 +54,29 @@ void setup() {
   else Serial.println("Escaneo I2C finalizado\n");
 
 }
- 
- 
 void loop(){
+  // Detección ultrasónica
+  if (ultrasonic.detectPresence()) {
+    lastDetectionTime = millis();
+    if (!systemOn) {
+      systemOn = true;
+      dsp.setupDisplay();
+    }
+  }
+
+  // Apagar después de 1 minuto sin detección
+  if (systemOn && millis() - lastDetectionTime > 60000) {
+    systemOn = false;
+    dsp.turnOff();
+  }
+
   powerButton.update();
   if(systemOn) {
     soilMoistureSensor.checkSoilMoistureLevel();
-    lightSensor.checkLux();
+    //lightSensor.checkLux();
+    led.setRed(soilMoistureSensor.getSoilMoistureLevel() < 50);  // Rojo si humedad < 50%
+    
+    //led.setYellow(lightSensor.getLux() < 100);  // Amarillo si luz < 100 lux
     dsp.updateDisplay();
     dsp.cleanDisplay();
   }

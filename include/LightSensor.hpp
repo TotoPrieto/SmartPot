@@ -7,10 +7,12 @@ class LightSensor {
   public:
 	  LightSensor(I2C& display);
   	void begin();
-	  void checkLux();
+  	void checkLux();
+  	float getLux();
 
   private:
     BH1750 bh1750;
     I2C& dsp;
+    float currentLux;
 };
 
