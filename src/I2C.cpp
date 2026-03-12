@@ -73,50 +73,27 @@ void I2C::soilHighValue(){
   
 }
 
-void I2C::lightMidValue(int lightpercent){
-
-  display.setCursor(10,0);  //oled display
+void I2C::lightValue(float lux) {
+  display.setCursor(10, 10);
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.println("Luz");
 
-  display.setCursor(70,10);  //oled display
+  display.setCursor(50, 10);
   display.setTextSize(1);
   display.setTextColor(WHITE);
 
-  display.println(lightpercent);
-  display.setCursor(80,10);
-  display.setTextSize(1);
-  display.println(" %");
- 
-}
-
-void I2C::lightLowValue() {
-
-  display.setCursor(10,10);  //oled display
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.println("Luz");
-
-  display.setCursor(70,10);  //oled display
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.println("0 %");
- 
-}
-
-void I2C::lightHighValue(){
-
-  display.setCursor(10,10);  //oled display
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.println("Luz");
-
-  display.setCursor(70,10);  //oled display
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.println("100 %");
-  
+  if (lux < 50) {
+    display.println("Oscuridad");
+  } else if (lux < 500) {
+    display.println("Artificial");
+  } else if (lux < 2000) {
+    display.println("Nublado");
+  } else if (lux < 10000) {
+    display.println("Sol indir.");
+  } else {
+    display.println("Sol direc.");
+  }
 }
 void I2C::updateDisplay() {
   display.display();

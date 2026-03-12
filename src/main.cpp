@@ -35,25 +35,8 @@ void setup() {
   lightSensor.begin();
   led.begin();
   ultrasonic.begin();
-
-  // --- I2C Scanner ---
-  Serial.println("\nEscaneando bus I2C...");
-  byte count = 0;
-  for (byte address = 1; address < 127; address++) {
-    Wire.beginTransmission(address);
-    if (Wire.endTransmission() == 0) {
-      Serial.print("Dispositivo I2C encontrado en 0x");
-      if (address < 16) Serial.print("0");
-      Serial.print(address, HEX);
-      Serial.println();
-      count++;
-      delay(5);
-    }
-  }
-  if (count == 0) Serial.println("No se encontraron dispositivos I2C\n");
-  else Serial.println("Escaneo I2C finalizado\n");
-
 }
+
 void loop(){
   // Detección ultrasónica
   if (ultrasonic.detectPresence()) {
@@ -73,10 +56,10 @@ void loop(){
   powerButton.update();
   if(systemOn) {
     soilMoistureSensor.checkSoilMoistureLevel();
-    //lightSensor.checkLux();
-    led.setRed(soilMoistureSensor.getSoilMoistureLevel() < 50);  // Rojo si humedad < 50%
+    lightSensor.checkLux();
+    //led.setRed(soilMoistureSensor.getSoilMoistureLevel() < 50);  // Rojo si humedad < 50%
     
-    //led.setYellow(lightSensor.getLux() < 100);  // Amarillo si luz < 100 lux
+    //led.setYellow(lightSensor.noSunForWhile());  // Amarillo si luz < 100 lux
     dsp.updateDisplay();
     dsp.cleanDisplay();
   }

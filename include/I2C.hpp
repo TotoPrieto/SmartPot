@@ -13,9 +13,7 @@ class I2C {
     void soilLowValue();
     void soilHighValue();
 
-    void lightMidValue(int lightpercent);
-    void lightLowValue();
-    void lightHighValue();
+    void lightValue(float lux);
 
     void showWaterMessage();
 
